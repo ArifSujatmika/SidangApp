@@ -2,39 +2,38 @@
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
         <div class="flex items-center justify-between">
             <h1 class="text-2xl font-bold">Kelola Pengguna</h1>
-            <a href="{{ route('admin.users.create') }}" class="rounded-lg bg-teal-600 px-4 py-2 text-sm text-white hover:bg-teal-700">Tambah Pengguna</a>
+            <flux:button variant="primary" :href="route('admin.users.create')" wire:navigate>Tambah Pengguna</flux:button>
         </div>
 
-        <div class="overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <table class="min-w-full text-sm">
-                <thead class="bg-neutral-50 dark:bg-neutral-900">
-                    <tr>
-                        <th class="px-4 py-3 text-left">Nama</th>
-                        <th class="px-4 py-3 text-left">Username</th>
-                        <th class="px-4 py-3 text-left">Email</th>
-                        <th class="px-4 py-3 text-left">Role</th>
-                        <th class="px-4 py-3 text-left">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
-                        <tr class="border-t">
-                            <td class="px-4 py-3">{{ $user->name }}</td>
-                            <td class="px-4 py-3">{{ $user->username }}</td>
-                            <td class="px-4 py-3">{{ $user->email }}</td>
-                            <td class="px-4 py-3">{{ $user->role }}</td>
-                            <td class="px-4 py-3">
-                                <a href="{{ route('admin.users.edit', $user) }}" class="text-teal-600 dark:text-teal-400 hover:underline">Edit</a>
-                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline-block ml-2" onsubmit="return confirm('Hapus pengguna {{ $user->name }}?')">
+        <flux:table class="min-w-full">
+            <flux:table.columns>
+                <flux:table.column>Nama</flux:table.column>
+                <flux:table.column>Username</flux:table.column>
+                <flux:table.column>Email</flux:table.column>
+                <flux:table.column>Role</flux:table.column>
+                <flux:table.column>Aksi</flux:table.column>
+            </flux:table.columns>
+
+            <flux:table.rows>
+                @foreach ($users as $user)
+                    <flux:table.row>
+                        <flux:table.cell>{{ $user->name }}</flux:table.cell>
+                        <flux:table.cell>{{ $user->username }}</flux:table.cell>
+                        <flux:table.cell>{{ $user->email }}</flux:table.cell>
+                        <flux:table.cell>{{ $user->role }}</flux:table.cell>
+                        <flux:table.cell>
+                            <div class="flex items-center gap-2">
+                                <flux:button variant="ghost" size="xs" :href="route('admin.users.edit', $user)" wire:navigate>Edit</flux:button>
+                                <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="inline" onsubmit="return confirm('Hapus pengguna {{ $user->name }}?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                                    <flux:button variant="ghost" size="xs" type="submit" class="!text-red-600">Hapus</flux:button>
                                 </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                            </div>
+                        </flux:table.cell>
+                    </flux:table.row>
+                @endforeach
+            </flux:table.rows>
+        </flux:table>
     </div>
 </x-layouts::app>

@@ -14,7 +14,7 @@
 
             <div class="pt-2">
                 <a href="{{ route('submissions.download', $submission) }}"
-                   class="inline-block rounded-lg bg-teal-600 px-4 py-2 text-sm text-white hover:bg-teal-700">
+                   class="inline-block rounded-lg bg-yellow-500 px-4 py-2 text-sm text-white hover:bg-yellow-600">
                     Download Laporan
                 </a>
             </div>
@@ -32,15 +32,13 @@
                             <option value="revisi" @selected($submission->status === 'revisi')>Revisi</option>
                             <option value="selesai" @selected($submission->status === 'selesai')>Selesai</option>
                         </select>
-                        <button type="submit" class="rounded-lg bg-teal-600 px-4 py-2 text-sm text-white hover:bg-teal-700">Simpan</button>
+                        <flux:button type="submit" variant="primary" size="xs">Simpan</flux:button>
                     </form>
                 </div>
             @endif
             @if (auth()->user()->role === 'dosen')
                 <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-4">
-                    <a href="{{ route('revisions.create', $submission) }}" class="inline-block rounded-lg bg-teal-600 px-4 py-2 text-sm text-white hover:bg-teal-700">
-                        Tambah Catatan Revisi
-                    </a>
+                    <flux:button variant="primary" :href="route('revisions.create', $submission)" size="xs">Tambah Catatan Revisi</flux:button>
                 </div>
             @endif
         @endauth
@@ -74,7 +72,7 @@
 
                         @auth
                             @if (auth()->user()->id === $submission->user_id)
-                                <a href="{{ route('revisions.reply', $note) }}" class="mt-2 inline-block text-sm text-teal-600 dark:text-teal-400 hover:underline">Balas Revisi</a>
+                                <a href="{{ route('revisions.reply', $note) }}" class="mt-2 inline-block text-sm text-yellow-600 dark:text-yellow-400 hover:underline">Balas Revisi</a>
                             @endif
                         @endauth
 

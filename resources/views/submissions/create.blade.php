@@ -35,11 +35,11 @@
             <div>
                 <label for="file" class="block text-sm font-medium">File Laporan (PDF, maks 10MB)</label>
                 <input type="file" name="file" id="file" accept=".pdf" required
-                    class="mt-1 block w-full text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-teal-600 file:px-4 file:py-2 file:text-white">
+                    class="mt-1 block w-full text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-yellow-500 file:px-4 file:py-2 file:text-white">
                 @error('file') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
             </div>
 
-            <button type="submit" class="rounded-lg bg-teal-600 px-6 py-2 text-white text-sm font-medium hover:bg-teal-700">
+            <button type="submit" class="rounded-lg bg-yellow-500 px-6 py-2 text-white text-sm font-medium hover:bg-yellow-600">
                 Upload
             </button>
             @endif

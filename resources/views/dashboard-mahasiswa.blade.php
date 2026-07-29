@@ -12,13 +12,9 @@
                     @endif
                 </p>
                 @if ($submission->file_path === null)
-                    <a href="{{ route('submissions.edit', $submission) }}" class="mt-3 inline-block rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white hover:bg-teal-700">
-                        Lengkapi Laporan
-                    </a>
+                    <flux:button variant="primary" size="xs" :href="route('submissions.edit', $submission)">Lengkapi Laporan</flux:button>
                 @else
-                    <a href="{{ route('submissions.show', $submission) }}" class="mt-3 inline-block text-sm text-teal-600 hover:underline dark:text-teal-400">
-                        Lihat Detail
-                    </a>
+                    <flux:button variant="ghost" size="xs" :href="route('submissions.show', $submission)">Lihat Detail</flux:button>
                 @endif
             </div>
 
@@ -43,7 +39,7 @@
                             @endif
 
                             @if ($note->status_poin === 'open')
-                                <a href="{{ route('revisions.reply', $note) }}" class="text-teal-600 dark:text-teal-400 hover:underline text-sm mt-2 inline-block">
+                                <a href="{{ route('revisions.reply', $note) }}" class="text-yellow-600 dark:text-yellow-400 hover:underline text-sm mt-2 inline-block">
                                     + Tanggapi Revisi
                                 </a>
                             @endif
@@ -54,9 +50,7 @@
         @else
             <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-4">
                 <p class="text-neutral-500">Belum ada submission.</p>
-                <a href="{{ route('submissions.create') }}" class="text-teal-600 dark:text-teal-400 hover:underline text-sm mt-2 inline-block">
-                    + Upload Laporan
-                </a>
+                <flux:button variant="ghost" :href="route('submissions.create')" size="xs">+ Upload Laporan</flux:button>
             </div>
         @endif
     </div>

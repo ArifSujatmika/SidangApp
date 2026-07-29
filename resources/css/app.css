@@ -23,16 +23,27 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-teal-600);
-    --color-accent-content: var(--color-teal-600);
+    --color-yellow-50: #fefce8;
+    --color-yellow-100: #fef9c3;
+    --color-yellow-200: #fef08a;
+    --color-yellow-300: #fde047;
+    --color-yellow-400: #facc15;
+    --color-yellow-500: #eab308;
+    --color-yellow-600: #ca8a04;
+    --color-yellow-700: #a16207;
+    --color-yellow-800: #854d0e;
+    --color-yellow-900: #713f12;
+
+    --color-accent: var(--color-yellow-500);
+    --color-accent-content: var(--color-yellow-500);
     --color-accent-foreground: var(--color-white);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-teal-400);
-        --color-accent-content: var(--color-teal-400);
-        --color-accent-foreground: var(--color-teal-950);
+        --color-accent: var(--color-yellow-400);
+        --color-accent-content: var(--color-yellow-400);
+        --color-accent-foreground: var(--color-zinc-950);
     }
 }
 
@@ -64,7 +75,3 @@ textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
-
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */

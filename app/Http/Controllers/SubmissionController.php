@@ -36,7 +36,7 @@ class SubmissionController extends Controller
                 'required',
                 'exists:schedules,id',
                 function ($attribute, $value, $fail) {
-                    $exists = \App\Models\Submission::where('user_id', auth()->id())
+                    $exists = Submission::where('user_id', auth()->id())
                         ->where('schedule_id', $value)
                         ->exists();
 

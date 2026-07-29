@@ -9,28 +9,27 @@
                 <p class="text-xs text-neutral-400">Dosen terpasang: {{ $schedule->dosens->pluck('name')->join(', ') ?: 'Belum ada' }}</p>
 
                 @if ($schedule->submissions->count())
-                    <table class="mt-3 w-full text-sm">
-                        <thead>
-                            <tr class="border-b text-left">
-                                <th class="py-2">Mahasiswa</th>
-                                <th>Judul</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <flux:table class="mt-3 w-full">
+                        <flux:table.columns>
+                            <flux:table.column>Mahasiswa</flux:table.column>
+                            <flux:table.column>Judul</flux:table.column>
+                            <flux:table.column>Status</flux:table.column>
+                            <flux:table.column>Aksi</flux:table.column>
+                        </flux:table.columns>
+
+                        <flux:table.rows>
                             @foreach ($schedule->submissions as $submission)
-                                <tr class="border-b">
-                                    <td class="py-2">{{ $submission->user->name }}</td>
-                                    <td>{{ $submission->judul_laporan }}</td>
-                                    <td>{{ $submission->status }}</td>
-                                    <td>
-                                        <a href="{{ route('submissions.show', $submission) }}" class="text-teal-600 dark:text-teal-400 hover:underline">Detail</a>
-                                    </td>
-                                </tr>
+                                <flux:table.row>
+                                    <flux:table.cell>{{ $submission->user->name }}</flux:table.cell>
+                                    <flux:table.cell>{{ $submission->judul_laporan }}</flux:table.cell>
+                                    <flux:table.cell>{{ $submission->status }}</flux:table.cell>
+                                    <flux:table.cell>
+                                        <flux:button variant="ghost" size="xs" :href="route('submissions.show', $submission)" wire:navigate>Detail</flux:button>
+                                    </flux:table.cell>
+                                </flux:table.row>
                             @endforeach
-                        </tbody>
-                    </table>
+                        </flux:table.rows>
+                    </flux:table>
                 @else
                     <p class="mt-2 text-sm text-neutral-400">Tidak ada mahasiswa di sesi ini.</p>
                 @endif
