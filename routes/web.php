@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnalysisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RevisionController;
 use App\Http\Controllers\SubmissionController;
@@ -26,6 +27,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('admin/schedules/{schedule}', [AdminController::class, 'updateSchedule'])->name('admin.schedules.update');
     Route::delete('admin/schedules/{schedule}', [AdminController::class, 'destroySchedule'])->name('admin.schedules.destroy');
 
+    Route::get('admin/ai-assistant', [AdminController::class, 'aiAssistant'])->name('admin.ai-assistant');
+
     Route::post('submissions/{submission}/status', [AdminController::class, 'updateSubmissionStatus'])->name('admin.submissions.update-status');
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -35,6 +38,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('submissions/{submission}', [SubmissionController::class, 'update'])->name('submissions.update');
     Route::get('submissions/{submission}', [SubmissionController::class, 'show'])->name('submissions.show');
     Route::get('submissions/{submission}/download', [SubmissionController::class, 'download'])->name('submissions.download');
+    Route::get('submissions/{submission}/analysis', [AnalysisController::class, 'show'])
+        ->middleware('can:analyze-submission,submission')
+        ->name('submissions.analysis');
 
     Route::get('submissions/{submission}/revisions/create', [RevisionController::class, 'create'])->name('revisions.create');
     Route::post('submissions/{submission}/revisions', [RevisionController::class, 'store'])->name('revisions.store');

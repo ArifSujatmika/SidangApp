@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Submission extends Model
 {
@@ -36,5 +37,10 @@ class Submission extends Model
     public function revisionNotes(): HasMany
     {
         return $this->hasMany(RevisionNote::class);
+    }
+
+    public function documentAnalysis(): HasOne
+    {
+        return $this->hasOne(DocumentAnalysis::class);
     }
 }

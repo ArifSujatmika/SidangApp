@@ -38,9 +38,18 @@
             @endif
             @if (auth()->user()->role === 'dosen')
                 <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-4">
-                    <flux:button variant="primary" :href="route('revisions.create', $submission)" size="xs">Tambah Catatan Revisi</flux:button>
+                    <div class="flex items-center gap-3">
+                        <flux:button variant="primary" :href="route('revisions.create', $submission)" size="xs">Tambah Catatan Revisi</flux:button>
+                    </div>
                 </div>
             @endif
+            @can('analyze-submission', $submission)
+                <div class="rounded-xl border border-neutral-200 dark:border-neutral-700 p-4">
+                    <flux:button variant="primary" :href="route('submissions.analysis', $submission)" size="xs">
+                        Analisa AI
+                    </flux:button>
+                </div>
+            @endcan
         @endauth
 
         @if ($submission->revisionNotes->count())

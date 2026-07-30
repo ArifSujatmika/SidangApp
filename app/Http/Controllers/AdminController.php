@@ -213,6 +213,11 @@ class AdminController extends Controller
         return $retainedParticipants;
     }
 
+    public function aiAssistant(): View
+    {
+        return view('admin.ai-assistant');
+    }
+
     public function destroySchedule(Schedule $schedule): RedirectResponse
     {
         $schedule->delete();

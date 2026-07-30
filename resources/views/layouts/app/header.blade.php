@@ -64,6 +64,10 @@
                         <flux:sidebar.item icon="calendar-days" :href="route('admin.schedules.index')" :current="request()->routeIs('admin.schedules.*')" wire:navigate>
                             {{ __('Kelola Jadwal') }}
                         </flux:sidebar.item>
+
+                        <flux:sidebar.item icon="sparkles" :href="route('admin.ai-assistant')" :current="request()->routeIs('admin.ai-assistant')" wire:navigate>
+                            {{ __('Asisten AI') }}
+                        </flux:sidebar.item>
                     @endcan
 
                     @can('mahasiswa')

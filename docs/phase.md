@@ -68,5 +68,34 @@
 - [x] Full automated test suite: 38 passed (100 assertions)
 - [x] Production frontend build succeeded
 
+## Phase 10: AI Document Analysis ✅
+- [x] Install packages: openai-php/client, smalot/pdfparser
+- [x] Migration: document_analyses table
+- [x] Model: DocumentAnalysis + relasi
+- [x] Config: config/ai-analysis.php + env vars
+- [x] Service: AiAnalysisService (extract PDF + call LLM)
+- [x] Job: AnalyzeDocument (queue-based async)
+- [x] Gate: analyze-submission (admin + assigned dosen)
+- [x] Route: GET /submissions/{submission}/analysis
+- [x] Controller: AnalysisController::show
+- [x] Livewire: DocumentAnalyzer (trigger + polling)
+- [x] View: analysis/show.blade.php + livewire/document-analyzer.blade.php
+- [x] Trigger button di submissions.show
+- [x] Tests: DocumentAnalysisTest (feature) + AiAnalysisServiceTest (unit) — 17 tests
+- [x] Pint format + test suite verify — 55 tests (139 assertions) all green
 ---
-**Status:** Phase 0–9 selesai. Plotting dosen/mahasiswa dengan Alpine checkbox picker, upload placeholder, seeder, dan 38 test (100 assertions) semuanya passing.
+
+## Phase 11: AI Virtual Assistant (Admin Chat) ✅
+- [x] Migration: chat_messages table
+- [x] Model: ChatMessage
+- [x] Service: AiAssistantService (system context + chat)
+- [x] Livewire: ChatAssistant (chat UI with history)
+- [x] Route: GET /admin/ai-assistant (admin-only)
+- [x] View: admin/ai-assistant.blade.php + livewire/chat-assistant.blade.php
+- [x] Sidebar menu item (desktop + mobile)
+- [x] Tests: AiAssistantTest (feature) + AiAssistantServiceTest (unit) — 10 tests
+- [x] Pint format + test suite verify — 65 tests (200 assertions) all green
+
+---
+
+**Status:** Phase 0–11 selesai. — 65 tests (200 assertions) all green.

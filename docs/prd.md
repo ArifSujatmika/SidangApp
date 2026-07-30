@@ -141,6 +141,19 @@ Schema::create('schedule_dosen', function (Blueprint $table) {
 });
 ```
 
+### FR-05: Analisa Dokumen Laporan dengan AI (Admin & Dosen)
+*   **Kebutuhan:** Admin/Dosen menganalisa laporan PDF mahasiswa dengan bantuan AI (LLM).
+*   **Spesifikasi Teknik:**
+    *   Trigger manual oleh admin/dosen via tombol "Analisa AI" di halaman submission.
+    *   Queue-based async processing (`AnalyzeDocument` job, database driver).
+    *   LLM: OpenAI-compatible API (configurable `base_url`, `model`, `api_key` via `.env`).
+    *   Hasil analisa: ringkasan (200-300 kata), skor plagiarisme (0-100), skor struktur (0-100), skor kualitas (0-100), skor overall (rata-rata).
+    *   Disimpan permanen di tabel `document_analyses`, satu record per submission (upsert on retry).
+    *   Progress real-time via Livewire polling (2 detik interval).
+    *   Gate `analyze-submission` — admin + dosen assigned to submission's schedule.
+    *   Error handling: PDF hasil scan (no text), PDF besar (truncate), API timeout (retry 1x), invalid JSON response.
+    *   PDF text extraction via `smalot/pdfparser` (pure PHP, no system dependency).
+
 ---
 
 ## 5. MVP Additions (Post-Initial Build)

@@ -4,6 +4,31 @@ Running log of agent-performed steps. Newest first. Complements `phase.md` (feat
 
 ---
 
+## Session: AI Virtual Assistant + Queue Fix (2026-07-30)
+
+### Root Cause Found
+AI analysis feature (Phase 10) was fully implemented but **queue worker wasn't running**. The `AnalyzeDocument` job sits in the database queue indefinitely without a worker. SQLite/MySQL jobs table was empty (0 pending, 0 failed).
+
+### Done
+- [x] Started `php artisan queue:listen` in background to process AI analysis jobs.
+- [x] Created `chat_messages` migration + `ChatMessage` model.
+- [x] Created `AiAssistantService` — gathers system context (users, schedules, submissions, revision notes, analyses) and sends chat to LLM with conversation history.
+- [x] Created `ChatAssistant` Livewire component — chat UI with message send, loading state, clear history.
+- [x] Created route `GET /admin/ai-assistant` gated with `can:admin`.
+- [x] Created `admin/ai-assistant.blade.php` + `livewire/chat-assistant.blade.php` views.
+- [x] Added sidebar menu item "Asisten AI" to both desktop and mobile sidebars under admin section.
+- [x] 10 tests (6 feature + 4 unit) covering access control, send/receive, validation, history clear, persistence.
+- [x] Verification: 65 tests (200 assertions) all green, Pint clean, Vite build succeeded.
+
+### Key decisions
+- `ChatAssistant` uses array public properties (not Collection) for Livewire 4 compatibility.
+- `AiAssistantService::chat()` persists both user message and assistant reply to DB, plus returns reply string.
+- System context is gathered dynamically per request for fresh data.
+- Conversation history limited to last 20 messages with token budgeting.
+- Mocked `AiAssistantService` in feature tests to avoid real API calls.
+
+---
+
 ## Session: Docs audit & sync (2026-07-22)
 
 ### Done

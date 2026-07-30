@@ -60,5 +60,18 @@ class AppServiceProvider extends ServiceProvider
 
             return $submission->user_id === $user->id;
         });
+        Gate::define('analyze-submission', function (User $user, Submission $submission): bool {
+            if ($user->role === 'admin') {
+                return true;
+            }
+
+            if ($user->role === 'dosen') {
+                return $submission->schedule()
+                    ->whereHas('dosens', fn ($query) => $query->where('users.id', $user->id))
+                    ->exists();
+            }
+
+            return false;
+        });
     }
 }
